@@ -6,8 +6,7 @@ meta:
 </route>
 
 <script setup lang="ts">
-import type { Rule } from 'ant-design-vue/es/form'
-import { message } from 'ant-design-vue'
+import { Message } from '@arco-design/web-vue'
 import Copyright from '@/layouts/components/Copyright/index.vue'
 import useUserStore from '@/store/modules/user'
 
@@ -35,30 +34,32 @@ const loginForm = ref({
   password: '',
   remember: !!localStorage.login_account,
 })
-const loginRules = ref<Record<string, Rule[]>>({
+const loginRules = ref({
   account: [
-    { required: true, trigger: 'blur', message: '请输入用户名' },
+    { required: true, message: '请输入用户名' },
   ],
   password: [
-    { required: true, trigger: 'blur', message: '请输入密码' },
-    { min: 6, max: 18, trigger: 'blur', message: '密码长度为6到18位' },
+    { required: true, message: '请输入密码' },
+    { min: 6, max: 18, message: '密码长度为6到18位' },
   ],
 })
 function handleLogin() {
-  loginFormRef.value && loginFormRef.value.validate().then(() => {
-    loading.value = true
-    userStore.login(loginForm.value).then(() => {
-      loading.value = false
-      if (loginForm.value.remember) {
-        localStorage.setItem('login_account', loginForm.value.account)
-      }
-      else {
-        localStorage.removeItem('login_account')
-      }
-      router.push(redirect.value)
-    }).catch(() => {
-      loading.value = false
-    })
+  loginFormRef.value && loginFormRef.value.validate((errors: any) => {
+    if (!errors) {
+      loading.value = true
+      userStore.login(loginForm.value).then(() => {
+        loading.value = false
+        if (loginForm.value.remember) {
+          localStorage.setItem('login_account', loginForm.value.account)
+        }
+        else {
+          localStorage.removeItem('login_account')
+        }
+        router.push(redirect.value)
+      }).catch(() => {
+        loading.value = false
+      })
+    }
   })
 }
 
@@ -70,36 +71,34 @@ const registerForm = ref({
   password: '',
   checkPassword: '',
 })
-const registerRules = ref<Record<string, Rule[]>>({
+const registerRules = ref({
   account: [
-    { required: true, trigger: 'blur', message: '请输入用户名' },
+    { required: true, message: '请输入用户名' },
   ],
   captcha: [
-    { required: true, trigger: 'blur', message: '请输入验证码' },
+    { required: true, message: '请输入验证码' },
   ],
   password: [
-    { required: true, trigger: 'blur', message: '请输入密码' },
-    { min: 6, max: 18, trigger: 'blur', message: '密码长度为6到18位' },
+    { required: true, message: '请输入密码' },
+    { min: 6, max: 18, message: '密码长度为6到18位' },
   ],
   checkPassword: [
-    { required: true, trigger: 'blur', message: '请再次输入密码' },
+    { required: true, message: '请再次输入密码' },
     {
-      validator: async (_rule: Rule, value: string) => {
+      validator: async (value: string, callback: any) => {
         if (value !== registerForm.value.password) {
-          return Promise.reject(new Error('两次输入的密码不一致'))
+          return callback('两次输入的密码不一致')
         }
         else {
-          return Promise.resolve()
+          return callback()
         }
       },
     },
   ],
 })
 function handleRegister() {
-  message.info('注册模块仅提供界面演示，无实际功能，需开发者自行扩展')
-  registerFormRef.value && registerFormRef.value.validate().then(() => {
-    // 这里编写业务代码
-  }).catch(() => {
+  Message.info('注册模块仅提供界面演示，无实际功能，需开发者自行扩展')
+  registerFormRef.value && registerFormRef.value.validate(() => {
     // 这里编写业务代码
   })
 }
@@ -111,23 +110,21 @@ const resetForm = ref({
   captcha: '',
   newPassword: '',
 })
-const resetRules = ref<Record<string, Rule[]>>({
+const resetRules = ref({
   account: [
-    { required: true, trigger: 'blur', message: '请输入用户名' },
+    { required: true, message: '请输入用户名' },
   ],
   captcha: [
-    { required: true, trigger: 'blur', message: '请输入验证码' },
+    { required: true, message: '请输入验证码' },
   ],
   newPassword: [
-    { required: true, trigger: 'blur', message: '请输入新密码' },
-    { min: 6, max: 18, trigger: 'blur', message: '密码长度为6到18位' },
+    { required: true, message: '请输入新密码' },
+    { min: 6, max: 18, message: '密码长度为6到18位' },
   ],
 })
 function handleReset() {
-  message.info('重置密码仅提供界面演示，无实际功能，需开发者自行扩展')
-  resetFormRef.value && resetFormRef.value.validate().then(() => {
-    // 这里编写业务代码
-  }).catch(() => {
+  Message.info('重置密码仅提供界面演示，无实际功能，需开发者自行扩展')
+  resetFormRef.value && resetFormRef.value.validate(() => {
     // 这里编写业务代码
   })
 }
@@ -147,22 +144,22 @@ function testAccount(account: string) {
         <div class="logo shadow" />
         <img :src="banner" class="banner">
       </div>
-      <a-form v-show="formType === 'login'" ref="loginFormRef" :model="loginForm" :rules="loginRules" name="login" class="login-form">
+      <a-form v-show="formType === 'login'" id="login" ref="loginFormRef" :model="loginForm" :rules="loginRules" class="login-form">
         <div class="title-container">
           <h3 class="title">
             欢迎来到 {{ title }} ! 👋🏻
           </h3>
         </div>
         <div>
-          <a-form-item name="account">
-            <a-input v-model:value="loginForm.account" size="large" placeholder="用户名" tabindex="1">
+          <a-form-item field="account" hide-label>
+            <a-input v-model="loginForm.account" size="large" placeholder="用户名" tabindex="1">
               <template #prefix>
                 <svg-icon name="ri:user-3-fill" />
               </template>
             </a-input>
           </a-form-item>
-          <a-form-item name="password">
-            <a-input-password v-model:value="loginForm.password" size="large" placeholder="密码" tabindex="2" @keyup.enter="handleLogin">
+          <a-form-item field="password" hide-label>
+            <a-input-password v-model="loginForm.password" size="large" placeholder="密码" tabindex="2" @keyup.enter="handleLogin">
               <template #prefix>
                 <svg-icon name="ri:lock-2-fill" />
               </template>
@@ -173,18 +170,18 @@ function testAccount(account: string) {
           <a-checkbox v-model:checked="loginForm.remember">
             记住我
           </a-checkbox>
-          <a-button type="link" @click="formType = 'reset'">
+          <a-link type="link" @click="formType = 'reset'">
             忘记密码了?
-          </a-button>
+          </a-link>
         </div>
         <a-button :loading="loading" type="primary" size="large" style="width: 100%;" @click.prevent="handleLogin">
           登录
         </a-button>
         <div class="sub-link">
           <span class="text">还没有帐号?</span>
-          <a-button type="link" @click="formType = 'register'">
+          <a-link type="link" @click="formType = 'register'">
             创建新帐号
-          </a-button>
+          </a-link>
         </div>
         <div style="margin-top: 20px; margin-bottom: -20px; text-align: center;">
           <a-divider>演示账号一键登录</a-divider>
@@ -198,41 +195,41 @@ function testAccount(account: string) {
           </a-space>
         </div>
       </a-form>
-      <a-form v-show="formType === 'register'" ref="registerFormRef" :model="registerForm" :rules="registerRules" name="register" class="login-form" auto-complete="on">
+      <a-form v-show="formType === 'register'" id="register" ref="registerFormRef" :model="registerForm" :rules="registerRules" class="login-form" auto-complete="on">
         <div class="title-container">
           <h3 class="title">
             探索从这里开始! 🚀
           </h3>
         </div>
         <div>
-          <a-form-item name="account">
-            <a-input v-model:value="registerForm.account" size="large" placeholder="用户名" tabindex="1">
+          <a-form-item field="account" hide-label>
+            <a-input v-model="registerForm.account" size="large" placeholder="用户名" tabindex="1">
               <template #prefix>
                 <svg-icon name="ri:user-3-fill" />
               </template>
             </a-input>
           </a-form-item>
-          <a-form-item name="captcha">
-            <a-input v-model:value="registerForm.captcha" size="large" placeholder="验证码" tabindex="2">
-              <template #prefix>
-                <svg-icon name="ic:baseline-verified-user" />
-              </template>
-              <template #suffix>
-                <a-button size="small">
-                  发送验证码
-                </a-button>
-              </template>
-            </a-input>
+          <a-form-item field="captcha" hide-label>
+            <a-input-group style="width: 100%;">
+              <a-input v-model="registerForm.captcha" size="large" placeholder="验证码" tabindex="2">
+                <template #prefix>
+                  <svg-icon name="ic:baseline-verified-user" />
+                </template>
+              </a-input>
+              <a-button size="large">
+                发送验证码
+              </a-button>
+            </a-input-group>
           </a-form-item>
-          <a-form-item name="password">
-            <a-input-password v-model:value="registerForm.password" size="large" placeholder="密码" tabindex="3">
+          <a-form-item field="password" hide-label>
+            <a-input-password v-model="registerForm.password" size="large" placeholder="密码" tabindex="3">
               <template #prefix>
                 <svg-icon name="ri:lock-2-fill" />
               </template>
             </a-input-password>
           </a-form-item>
-          <a-form-item name="checkPassword">
-            <a-input-password v-model:value="registerForm.checkPassword" size="large" placeholder="确认密码" tabindex="4">
+          <a-form-item field="checkPassword" hide-label>
+            <a-input-password v-model="registerForm.checkPassword" size="large" placeholder="确认密码" tabindex="4">
               <template #prefix>
                 <svg-icon name="ri:lock-2-fill" />
               </template>
@@ -244,39 +241,39 @@ function testAccount(account: string) {
         </a-button>
         <div class="sub-link">
           <span class="text">已经有帐号?</span>
-          <a-button type="link" @click="formType = 'login'">
+          <a-link type="link" @click="formType = 'login'">
             去登录
-          </a-button>
+          </a-link>
         </div>
       </a-form>
-      <a-form v-show="formType === 'reset'" ref="resetFormRef" :model="resetForm" :rules="resetRules" name="reset" class="login-form">
+      <a-form v-show="formType === 'reset'" id="reset" ref="resetFormRef" :model="resetForm" :rules="resetRules" class="login-form">
         <div class="title-container">
           <h3 class="title">
             忘记密码了? 🔒
           </h3>
         </div>
         <div>
-          <a-form-item name="account">
-            <a-input v-model:value="resetForm.account" size="large" placeholder="用户名" tabindex="1">
+          <a-form-item field="account" hide-label>
+            <a-input v-model="resetForm.account" size="large" placeholder="用户名" tabindex="1">
               <template #prefix>
                 <svg-icon name="ri:user-3-fill" />
               </template>
             </a-input>
           </a-form-item>
-          <a-form-item name="captcha">
-            <a-input v-model:value="resetForm.captcha" size="large" placeholder="验证码" tabindex="2">
-              <template #prefix>
-                <svg-icon name="ic:baseline-verified-user" />
-              </template>
-              <template #suffix>
-                <a-button size="small">
-                  发送验证码
-                </a-button>
-              </template>
-            </a-input>
+          <a-form-item field="captcha" hide-label>
+            <a-input-group style="width: 100%;">
+              <a-input v-model="resetForm.captcha" size="large" placeholder="验证码" tabindex="2">
+                <template #prefix>
+                  <svg-icon name="ic:baseline-verified-user" />
+                </template>
+              </a-input>
+              <a-button size="large">
+                发送验证码
+              </a-button>
+            </a-input-group>
           </a-form-item>
-          <a-form-item name="newPassword">
-            <a-input-password v-model:value="resetForm.newPassword" size="large" placeholder="新密码" tabindex="3">
+          <a-form-item field="newPassword" hide-label>
+            <a-input-password v-model="resetForm.newPassword" size="large" placeholder="新密码" tabindex="3">
               <template #prefix>
                 <svg-icon name="ri:lock-2-fill" />
               </template>
@@ -287,9 +284,9 @@ function testAccount(account: string) {
           确认
         </a-button>
         <div class="sub-link">
-          <a-button type="link" @click="formType = 'login'">
+          <a-link type="link" @click="formType = 'login'">
             去登录
-          </a-button>
+          </a-link>
         </div>
       </a-form>
     </div>
