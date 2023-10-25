@@ -144,151 +144,151 @@ function testAccount(account: string) {
         <div class="logo shadow" />
         <img :src="banner" class="banner">
       </div>
-      <a-form v-show="formType === 'login'" id="login" ref="loginFormRef" :model="loginForm" :rules="loginRules" class="login-form">
+      <AForm v-show="formType === 'login'" id="login" ref="loginFormRef" :model="loginForm" :rules="loginRules" class="login-form">
         <div class="title-container">
           <h3 class="title">
             欢迎来到 {{ title }} ! 👋🏻
           </h3>
         </div>
         <div>
-          <a-form-item field="account" hide-label>
-            <a-input v-model="loginForm.account" size="large" placeholder="用户名" tabindex="1">
+          <AFormItem field="account" hide-label>
+            <AInput v-model="loginForm.account" size="large" placeholder="用户名" tabindex="1">
               <template #prefix>
-                <svg-icon name="ri:user-3-fill" />
+                <SvgIcon name="ri:user-3-fill" />
               </template>
-            </a-input>
-          </a-form-item>
-          <a-form-item field="password" hide-label>
-            <a-input-password v-model="loginForm.password" size="large" placeholder="密码" tabindex="2" @keyup.enter="handleLogin">
+            </AInput>
+          </AFormItem>
+          <AFormItem field="password" hide-label>
+            <AInputPassword v-model="loginForm.password" size="large" placeholder="密码" tabindex="2" @keyup.enter="handleLogin">
               <template #prefix>
-                <svg-icon name="ri:lock-2-fill" />
+                <SvgIcon name="ri:lock-2-fill" />
               </template>
-            </a-input-password>
-          </a-form-item>
+            </AInputPassword>
+          </AFormItem>
         </div>
         <div class="flex-bar">
-          <a-checkbox v-model:checked="loginForm.remember">
+          <ACheckbox v-model:checked="loginForm.remember">
             记住我
-          </a-checkbox>
-          <a-link type="link" @click="formType = 'reset'">
+          </ACheckbox>
+          <ALink type="link" @click="formType = 'reset'">
             忘记密码了?
-          </a-link>
+          </ALink>
         </div>
-        <a-button :loading="loading" type="primary" size="large" style="width: 100%;" @click.prevent="handleLogin">
+        <AButton :loading="loading" type="primary" size="large" style="width: 100%;" @click.prevent="handleLogin">
           登录
-        </a-button>
+        </AButton>
         <div class="sub-link">
           <span class="text">还没有帐号?</span>
-          <a-link type="link" @click="formType = 'register'">
+          <ALink type="link" @click="formType = 'register'">
             创建新帐号
-          </a-link>
+          </ALink>
         </div>
         <div style="margin-top: 20px; margin-bottom: -20px; text-align: center;">
-          <a-divider>演示账号一键登录</a-divider>
-          <a-space>
-            <a-button type="primary" size="small" @click="testAccount('admin')">
+          <ADivider>演示账号一键登录</ADivider>
+          <ASpace>
+            <AButton type="primary" size="small" @click="testAccount('admin')">
               admin
-            </a-button>
-            <a-button size="small" @click="testAccount('test')">
+            </AButton>
+            <AButton size="small" @click="testAccount('test')">
               test
-            </a-button>
-          </a-space>
+            </AButton>
+          </ASpace>
         </div>
-      </a-form>
-      <a-form v-show="formType === 'register'" id="register" ref="registerFormRef" :model="registerForm" :rules="registerRules" class="login-form" auto-complete="on">
+      </AForm>
+      <AForm v-show="formType === 'register'" id="register" ref="registerFormRef" :model="registerForm" :rules="registerRules" class="login-form" auto-complete="on">
         <div class="title-container">
           <h3 class="title">
             探索从这里开始! 🚀
           </h3>
         </div>
         <div>
-          <a-form-item field="account" hide-label>
-            <a-input v-model="registerForm.account" size="large" placeholder="用户名" tabindex="1">
+          <AFormItem field="account" hide-label>
+            <AInput v-model="registerForm.account" size="large" placeholder="用户名" tabindex="1">
               <template #prefix>
-                <svg-icon name="ri:user-3-fill" />
+                <SvgIcon name="ri:user-3-fill" />
               </template>
-            </a-input>
-          </a-form-item>
-          <a-form-item field="captcha" hide-label>
-            <a-input-group style="width: 100%;">
-              <a-input v-model="registerForm.captcha" size="large" placeholder="验证码" tabindex="2">
+            </AInput>
+          </AFormItem>
+          <AFormItem field="captcha" hide-label>
+            <AInputGroup style="width: 100%;">
+              <AInput v-model="registerForm.captcha" size="large" placeholder="验证码" tabindex="2">
                 <template #prefix>
-                  <svg-icon name="ic:baseline-verified-user" />
+                  <SvgIcon name="ic:baseline-verified-user" />
                 </template>
-              </a-input>
-              <a-button size="large">
+              </AInput>
+              <AButton size="large">
                 发送验证码
-              </a-button>
-            </a-input-group>
-          </a-form-item>
-          <a-form-item field="password" hide-label>
-            <a-input-password v-model="registerForm.password" size="large" placeholder="密码" tabindex="3">
+              </AButton>
+            </AInputGroup>
+          </AFormItem>
+          <AFormItem field="password" hide-label>
+            <AInputPassword v-model="registerForm.password" size="large" placeholder="密码" tabindex="3">
               <template #prefix>
-                <svg-icon name="ri:lock-2-fill" />
+                <SvgIcon name="ri:lock-2-fill" />
               </template>
-            </a-input-password>
-          </a-form-item>
-          <a-form-item field="checkPassword" hide-label>
-            <a-input-password v-model="registerForm.checkPassword" size="large" placeholder="确认密码" tabindex="4">
+            </AInputPassword>
+          </AFormItem>
+          <AFormItem field="checkPassword" hide-label>
+            <AInputPassword v-model="registerForm.checkPassword" size="large" placeholder="确认密码" tabindex="4">
               <template #prefix>
-                <svg-icon name="ri:lock-2-fill" />
+                <SvgIcon name="ri:lock-2-fill" />
               </template>
-            </a-input-password>
-          </a-form-item>
+            </AInputPassword>
+          </AFormItem>
         </div>
-        <a-button :loading="loading" type="primary" size="large" style="width: 100%; margin-top: 20px;" @click.prevent="handleRegister">
+        <AButton :loading="loading" type="primary" size="large" style="width: 100%; margin-top: 20px;" @click.prevent="handleRegister">
           注册
-        </a-button>
+        </AButton>
         <div class="sub-link">
           <span class="text">已经有帐号?</span>
-          <a-link type="link" @click="formType = 'login'">
+          <ALink type="link" @click="formType = 'login'">
             去登录
-          </a-link>
+          </ALink>
         </div>
-      </a-form>
-      <a-form v-show="formType === 'reset'" id="reset" ref="resetFormRef" :model="resetForm" :rules="resetRules" class="login-form">
+      </AForm>
+      <AForm v-show="formType === 'reset'" id="reset" ref="resetFormRef" :model="resetForm" :rules="resetRules" class="login-form">
         <div class="title-container">
           <h3 class="title">
             忘记密码了? 🔒
           </h3>
         </div>
         <div>
-          <a-form-item field="account" hide-label>
-            <a-input v-model="resetForm.account" size="large" placeholder="用户名" tabindex="1">
+          <AFormItem field="account" hide-label>
+            <AInput v-model="resetForm.account" size="large" placeholder="用户名" tabindex="1">
               <template #prefix>
-                <svg-icon name="ri:user-3-fill" />
+                <SvgIcon name="ri:user-3-fill" />
               </template>
-            </a-input>
-          </a-form-item>
-          <a-form-item field="captcha" hide-label>
-            <a-input-group style="width: 100%;">
-              <a-input v-model="resetForm.captcha" size="large" placeholder="验证码" tabindex="2">
+            </AInput>
+          </AFormItem>
+          <AFormItem field="captcha" hide-label>
+            <AInputGroup style="width: 100%;">
+              <AInput v-model="resetForm.captcha" size="large" placeholder="验证码" tabindex="2">
                 <template #prefix>
-                  <svg-icon name="ic:baseline-verified-user" />
+                  <SvgIcon name="ic:baseline-verified-user" />
                 </template>
-              </a-input>
-              <a-button size="large">
+              </AInput>
+              <AButton size="large">
                 发送验证码
-              </a-button>
-            </a-input-group>
-          </a-form-item>
-          <a-form-item field="newPassword" hide-label>
-            <a-input-password v-model="resetForm.newPassword" size="large" placeholder="新密码" tabindex="3">
+              </AButton>
+            </AInputGroup>
+          </AFormItem>
+          <AFormItem field="newPassword" hide-label>
+            <AInputPassword v-model="resetForm.newPassword" size="large" placeholder="新密码" tabindex="3">
               <template #prefix>
-                <svg-icon name="ri:lock-2-fill" />
+                <SvgIcon name="ri:lock-2-fill" />
               </template>
-            </a-input-password>
-          </a-form-item>
+            </AInputPassword>
+          </AFormItem>
         </div>
-        <a-button :loading="loading" type="primary" size="large" style="width: 100%; margin-top: 20px;" @click.prevent="handleReset">
+        <AButton :loading="loading" type="primary" size="large" style="width: 100%; margin-top: 20px;" @click.prevent="handleReset">
           确认
-        </a-button>
+        </AButton>
         <div class="sub-link">
-          <a-link type="link" @click="formType = 'login'">
+          <ALink type="link" @click="formType = 'login'">
             去登录
-          </a-link>
+          </ALink>
         </div>
-      </a-form>
+      </AForm>
     </div>
     <Copyright />
   </div>

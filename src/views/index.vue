@@ -87,7 +87,7 @@ const data = reactive([
 
 <template>
   <div>
-    <page-header>
+    <PageHeader>
       <template #title>
         <div class="flex items-center gap-4">
           欢迎使用 Fantastic-admin
@@ -98,74 +98,74 @@ const data = reactive([
           本演示站基于 Fantastic-admin 源码开发，将 Element Plus 替换为 Arco Design Vue ，详细操作步骤请阅读官方文档。
         </div>
       </template>
-    </page-header>
-    <page-main>
-      <a-space>
-        <a-button type="primary">
+    </PageHeader>
+    <PageMain>
+      <ASpace>
+        <AButton type="primary">
           Primary
-        </a-button>
-        <a-button>Secondary</a-button>
-        <a-button type="dashed">
+        </AButton>
+        <AButton>Secondary</AButton>
+        <AButton type="dashed">
           Dashed
-        </a-button>
-        <a-button type="outline">
+        </AButton>
+        <AButton type="outline">
           Outline
-        </a-button>
-        <a-button type="text">
+        </AButton>
+        <AButton type="text">
           Text
-        </a-button>
-      </a-space>
-    </page-main>
-    <page-main>
-      <a-space>
-        <a-input v-model="inputValue" :style="{ width: '320px' }" placeholder="Please enter something" allow-clear />
-        <a-input v-model.lazy="inputValue1" :style="{ width: '320px' }" placeholder="Please enter something" allow-clear />
-      </a-space>
-    </page-main>
-    <page-main>
-      <a-radio-group v-model="radioValue">
-        <a-radio :value="1">
+        </AButton>
+      </ASpace>
+    </PageMain>
+    <PageMain>
+      <ASpace>
+        <AInput v-model="inputValue" :style="{ width: '320px' }" placeholder="Please enter something" allow-clear />
+        <AInput v-model.lazy="inputValue1" :style="{ width: '320px' }" placeholder="Please enter something" allow-clear />
+      </ASpace>
+    </PageMain>
+    <PageMain>
+      <ARadioGroup v-model="radioValue">
+        <ARadio :value="1">
           A
-        </a-radio>
-        <a-radio :value="2">
+        </ARadio>
+        <ARadio :value="2">
           B
-        </a-radio>
-        <a-radio :value="3">
+        </ARadio>
+        <ARadio :value="3">
           C
-        </a-radio>
-        <a-radio :value="4">
+        </ARadio>
+        <ARadio :value="4">
           D
-        </a-radio>
-      </a-radio-group>
-    </page-main>
-    <page-main>
-      <a-space direction="vertical" :size="12">
-        <a-date-picker v-model="datePickerValue1" />
-        <a-week-picker v-model="datePickerValue2" />
-        <a-month-picker v-model="datePickerValue3" />
-        <a-quarter-picker v-model="datePickerValue4" />
-        <a-year-picker v-model="datePickerValue5" />
-      </a-space>
-    </page-main>
-    <page-main>
-      <a-rate v-model:value="rateValue" />
-    </page-main>
-    <page-main>
-      <a-space>
-        <a-select v-model="selectValue1" style="width: 120px;" :options="selectOptions1" />
-        <a-select v-model="selectValue2" style="width: 120px;" disabled :options="selectOptions2" />
-        <a-select v-model="selectValue3" style="width: 120px;" loading :options="selectOptions3" />
-      </a-space>
-    </page-main>
-    <page-main>
-      <a-slider v-model="sliderValue1" />
-      <a-slider v-model="sliderValue2" range />
-    </page-main>
-    <page-main>
-      <a-switch v-model="switchChecked" />
-    </page-main>
-    <page-main>
-      <a-table :columns="columns" :data="data" />
-    </page-main>
+        </ARadio>
+      </ARadioGroup>
+    </PageMain>
+    <PageMain>
+      <ASpace direction="vertical" :size="12">
+        <ADatePicker v-model="datePickerValue1" />
+        <AWeekPicker v-model="datePickerValue2" />
+        <AMonthPicker v-model="datePickerValue3" />
+        <AQuarterPicker v-model="datePickerValue4" />
+        <AYearPicker v-model="datePickerValue5" />
+      </ASpace>
+    </PageMain>
+    <PageMain>
+      <ARate v-model:value="rateValue" />
+    </PageMain>
+    <PageMain>
+      <ASpace>
+        <ASelect v-model="selectValue1" style="width: 120px;" :options="selectOptions1" />
+        <ASelect v-model="selectValue2" style="width: 120px;" disabled :options="selectOptions2" />
+        <ASelect v-model="selectValue3" style="width: 120px;" loading :options="selectOptions3" />
+      </ASpace>
+    </PageMain>
+    <PageMain>
+      <ASlider v-model="sliderValue1" />
+      <ASlider v-model="sliderValue2" range />
+    </PageMain>
+    <PageMain>
+      <ASwitch v-model="switchChecked" />
+    </PageMain>
+    <PageMain>
+      <ATable :columns="columns" :data="data" />
+    </PageMain>
   </div>
 </template>

@@ -70,8 +70,8 @@ import.meta.env.VITE_APP_DEBUG_TOOL === 'vconsole' && new VConsole()
 </script>
 
 <template>
-  <a-config-provider :locale="arcoDesignVueLocaleZhCN">
-    <router-view
+  <AConfigProvider :locale="arcoDesignVueLocaleZhCN">
+    <RouterView
       v-slot="{ Component, route }"
       :style="{
         '--g-main-sidebar-actual-width': mainSidebarActualWidth,
@@ -79,8 +79,8 @@ import.meta.env.VITE_APP_DEBUG_TOOL === 'vconsole' && new VConsole()
       }"
     >
       <component :is="Component" v-if="auth(route.meta.auth ?? '')" />
-      <not-allowed v-else />
-    </router-view>
-    <system-info />
-  </a-config-provider>
+      <NotAllowed v-else />
+    </RouterView>
+    <SystemInfo />
+  </AConfigProvider>
 </template>
