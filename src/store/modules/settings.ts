@@ -15,11 +15,9 @@ const useSettingsStore = defineStore(
       switch (colorScheme) {
         case 'light':
           document.documentElement.classList.remove('dark')
-          document.body.removeAttribute('arco-theme')
           break
         case 'dark':
           document.documentElement.classList.add('dark')
-          document.body.setAttribute('arco-theme', 'dark')
           break
       }
     }, {

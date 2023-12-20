@@ -2,13 +2,11 @@
 import eruda from 'eruda'
 import VConsole from 'vconsole'
 import hotkeys from 'hotkeys-js'
-import arcoDesignVueLocaleZhCN from '@arco-design/web-vue/es/locale/lang/zh-cn'
 import eventBus from './utils/eventBus'
+import Provider from './ui-provider/index.vue'
 import useSettingsStore from '@/store/modules/settings'
-import useMenuStore from '@/store/modules/menu'
 
 const settingsStore = useSettingsStore()
-const menuStore = useMenuStore()
 const { auth } = useAuth()
 
 // 侧边栏主导航当前实际宽度
@@ -25,15 +23,6 @@ const subSidebarActualWidth = computed(() => {
   let actualWidth = Number.parseInt(getComputedStyle(document.documentElement).getPropertyValue('--g-sub-sidebar-width'))
   if (settingsStore.settings.menu.subMenuCollapse && settingsStore.mode !== 'mobile') {
     actualWidth = Number.parseInt(getComputedStyle(document.documentElement).getPropertyValue('--g-sub-sidebar-collapse-width'))
-  }
-  if (
-    menuStore.sidebarMenus.length === 1
-      && (
-        !menuStore.sidebarMenus[0].children
-          || menuStore.sidebarMenus[0]?.children.every(item => item.meta?.sidebar === false)
-      )
-  ) {
-    actualWidth = 0
   }
   return `${actualWidth}px`
 })
@@ -70,7 +59,7 @@ import.meta.env.VITE_APP_DEBUG_TOOL === 'vconsole' && new VConsole()
 </script>
 
 <template>
-  <AConfigProvider :locale="arcoDesignVueLocaleZhCN">
+  <Provider>
     <RouterView
       v-slot="{ Component, route }"
       :style="{
@@ -82,5 +71,5 @@ import.meta.env.VITE_APP_DEBUG_TOOL === 'vconsole' && new VConsole()
       <NotAllowed v-else />
     </RouterView>
     <SystemInfo />
-  </AConfigProvider>
+  </Provider>
 </template>
