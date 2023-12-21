@@ -1,0 +1,1 @@
+import{a as o,q as r,A as i}from"./index-6zBlazYz.js";function c(){const t=o(),s=r(),e=i();function n(u){e.setActived(u),s.settings.menu.switchMainMenuAndPageJump&&t.push(e.sidebarMenusFirstDeepestPath)}return{switchTo:n}}export{c as u};
