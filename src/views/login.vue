@@ -403,7 +403,7 @@ function testAccount(account: string) {
     }
   }
 
-  :deep(.ant-divider-inner-text) {
+  :deep(.arco-divider-text) {
     background-color: var(--g-container-bg);
   }
 
