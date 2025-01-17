@@ -87,7 +87,7 @@ const data = reactive([
 
 <template>
   <div>
-    <PageHeader>
+    <FaPageHeader>
       <template #title>
         <div class="flex items-center gap-4">
           欢迎使用 Fantastic-admin
@@ -98,8 +98,8 @@ const data = reactive([
           本演示站基于 Fantastic-admin 源码开发，将 Element Plus 替换为 Arco Design Vue ，详细操作步骤请阅读官方文档。
         </div>
       </template>
-    </PageHeader>
-    <PageMain>
+    </FaPageHeader>
+    <FaPageMain>
       <ASpace>
         <AButton type="primary">
           Primary
@@ -115,14 +115,14 @@ const data = reactive([
           Text
         </AButton>
       </ASpace>
-    </PageMain>
-    <PageMain>
+    </FaPageMain>
+    <FaPageMain>
       <ASpace>
         <AInput v-model="inputValue" :style="{ width: '320px' }" placeholder="Please enter something" allow-clear />
         <AInput v-model.lazy="inputValue1" :style="{ width: '320px' }" placeholder="Please enter something" allow-clear />
       </ASpace>
-    </PageMain>
-    <PageMain>
+    </FaPageMain>
+    <FaPageMain>
       <ARadioGroup v-model="radioValue">
         <ARadio :value="1">
           A
@@ -137,8 +137,8 @@ const data = reactive([
           D
         </ARadio>
       </ARadioGroup>
-    </PageMain>
-    <PageMain>
+    </FaPageMain>
+    <FaPageMain>
       <ASpace direction="vertical" :size="12">
         <ADatePicker v-model="datePickerValue1" />
         <AWeekPicker v-model="datePickerValue2" />
@@ -146,26 +146,26 @@ const data = reactive([
         <AQuarterPicker v-model="datePickerValue4" />
         <AYearPicker v-model="datePickerValue5" />
       </ASpace>
-    </PageMain>
-    <PageMain>
+    </FaPageMain>
+    <FaPageMain>
       <ARate v-model:value="rateValue" />
-    </PageMain>
-    <PageMain>
+    </FaPageMain>
+    <FaPageMain>
       <ASpace>
         <ASelect v-model="selectValue1" style="width: 120px;" :options="selectOptions1" />
         <ASelect v-model="selectValue2" style="width: 120px;" disabled :options="selectOptions2" />
         <ASelect v-model="selectValue3" style="width: 120px;" loading :options="selectOptions3" />
       </ASpace>
-    </PageMain>
-    <PageMain>
+    </FaPageMain>
+    <FaPageMain>
       <ASlider v-model="sliderValue1" />
       <ASlider v-model="sliderValue2" range />
-    </PageMain>
-    <PageMain>
+    </FaPageMain>
+    <FaPageMain>
       <ASwitch v-model="switchChecked" />
-    </PageMain>
-    <PageMain>
+    </FaPageMain>
+    <FaPageMain>
       <ATable :columns="columns" :data="data" />
-    </PageMain>
+    </FaPageMain>
   </div>
 </template>
